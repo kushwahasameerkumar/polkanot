@@ -1,5 +1,5 @@
 {
-  "name": "QueueWorkerService",
+  "name": "ContractListnerService",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,9 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
+    "@polkadot/api": "^9.14.1",
+    "@polkadot/api-contract": "^9.14.1",
+    "express": "^4.18.2",
     "@redis/client": "^1.5.5"
   },
   "devDependencies": {
