@@ -165,19 +165,25 @@ class Database {
                         reject(response)
                     }
 
-                    Channel.updateOne({ channelId }, {
-                        $push: {
-                            webhooks: endpoint
-                        }
-                    }, (err, chan) => {
-                        if(err) {
-                            response.isError = true
-                            response.message = err.message
-                            reject(response)
-                        }
-                    })
+                    if(sub?.modifiedCount) {
+                        Channel.updateOne({ channelId }, {
+                            $push: {
+                                webhooks: endpoint
+                            }
+                        }, (err, chan) => {
+                            if(err) {
+                                response.isError = true
+                                response.message = err.message
+                                reject(response)
+                            }
 
-                    resolve(response)
+                            resolve(response)
+                        })
+                    } else {
+                        response.isError = true
+                        response.message = 'Not subscribed to this channel!'
+                        reject(response)
+                    }
                 })
             })
         })

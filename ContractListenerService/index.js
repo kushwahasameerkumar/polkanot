@@ -6,16 +6,16 @@ listener().catch((error) => {
     process.exit(-1);
 });
 
-setInterval(() => {
-    redisClient.publishNewNotificationEvent({
-        channelId: 2,
-        eventId: 12,
-        payload: JSON.stringify({channelId: "Sampleid"}),
-        author: "test",
-    })
+// setInterval(() => {
+//     redisClient.publishNewNotificationEvent({
+//         channelId: 2,
+//         eventId: 12,
+//         payload: JSON.stringify({channelId: "Sampleid"}),
+//         author: "test",
+//     })
 
-    redisClient.publishCreateChannelEvent({
-        channelId: 2,
-        channelName: "test_channel",
-    })
-}, 2000)
+//     redisClient.publishCreateChannelEvent({
+//         channelId: 2,
+//         channelName: "test_channel",
+//     })
+// }, 2000)

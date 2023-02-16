@@ -18,24 +18,24 @@ redisClient.subscribe('NOTIFICATION:PUBLISHED', newNotificationListener);
 
 function newChannelListener(msg){
     const {channelId, channelName} = JSON.parse(msg)
-    // db.AddNewChannel({channelId: channelId?.toString(), channelName}, (err, res) => {
-    //     if(err || res.isError){
-    //         console.error("Error: newChannelListener:", err, res);
-    //         return;
-    //     }
-    //     console.log(`Added new channel with channelId=${channelId} and channelName=${channelName} in the DB`);
-    // })
+    db.AddNewChannel({channelId: channelId?.toString(), channelName}, (err, res) => {
+        if(err || res.isError){
+            console.error("Error: newChannelListener:", err, res);
+            return;
+        }
+        console.log(`Added new channel with channelId=${channelId} and channelName=${channelName} in the DB`);
+    })
 }
 
 function newNotificationListener(msg){
     const {channelId, payload} = JSON.parse(msg);
-    // db.AddNewNotification({channelId, payload}, (err, res) => {
-    //     if(err || res.isError){
-    //         console.error(err, res);
-    //         return;
-    //     }
-    //     console.log(`Added new notification with channelId=${channelId} and payload=${JSON.stringify(payload)} in the DB`);
-    // })
+    db.AddNewNotification({channelId, payload}, (err, res) => {
+        if(err || res.isError){
+            console.error(err, res);
+            return;
+        }
+        console.log(`Added new notification with channelId=${channelId} and payload=${JSON.stringify(payload)} in the DB`);
+    })
 
     db.GetWebhooksByChannelId({channelId}, (err, res) => {
         if(err || res.isError){
@@ -43,12 +43,12 @@ function newNotificationListener(msg){
             return;
         }
 
-        console.log(res)
         const {webhookEndpoints} = res;
 
-        webhookEndpoints.forEach(endpoint => {
+        console.log(webhookEndpoints)
+        webhookEndpoints?.forEach(endpoint => {
             console.log(`Calling webhook endpoint ${endpoint} for channedId ${channelId}`);
-            callWebhookEndpointWithPayload(endpoint, JSON.parse(payload))
+            callWebhookEndpointWithPayload(endpoint, payload)
         })
     })
 }
@@ -62,9 +62,12 @@ async function callWebhookEndpointWithPayload(endpoint, jsonPayload) {
                 'Content-Type': 'application/json'
             }
         })
-        // console.log(`\[Status code: ${res.status}\]Successfully called webhook endpoint ${endpoint} with payload ${JSON.stringify(jsonPayload)}`)
-        // console.log(`\[Status code: ${res.status}\]Failed calling webhook endpoint ${endpoint} with payload ${JSON.stringify(jsonPayload)}`)
+
+        res.ok
+        ? console.log(`\[Status code: ${res.status}\]Successfully called webhook endpoint ${endpoint} with payload ${JSON.stringify(jsonPayload)}`)
+        : console.log(`\[Status code: ${res.status}\]Failed calling webhook endpoint ${endpoint} with payload ${JSON.stringify(jsonPayload)}`)
 
     }catch (err){
+        console.log("callWebhookEndpointWithPayload error:", err)
     }
 }

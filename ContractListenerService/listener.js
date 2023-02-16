@@ -2,8 +2,9 @@
 import { ApiPromise, WsProvider } from '@polkadot/api';
 import { Abi } from '@polkadot/api-contract';
 
+import redisClient from "./redisClient.js";
 import ABI from './metadata.json' assert { type: "json" };
-const MAIN_CONTRACT = '5Eo2VWrB3KXdZtC5jrQh6KQzGEVuudWvTCWvsmU9kqZqLXwN'
+const MAIN_CONTRACT = '5CToanamVescAGHRrWy8GAcrz1kM59ybc1bQDncdV68dFe3b'
 
 async function listener() {
     const abi = new Abi(ABI)
@@ -18,18 +19,23 @@ async function listener() {
             if (event.section === "contracts" && event.method === "ContractEmitted") {
                 const [contract_address, contract_event] = event.data;
 
-                /* Testing */
-
-                console.log(`contract address ${contract_address}`)
-
-                /* Testing end*/
-
                 // decode for events from MAIN_CONTRACT
                 if (contract_address.toString() === MAIN_CONTRACT) {
                     const decode = abi.decodeEvent(contract_event);
-                    console.log("Decoded:", (decode.args.toString()));
 
-                    // send event to queue
+                    // TODO: convert channelId from hex to integer
+                    if(decode.event.identifier === 'ChannelCreated') {
+                        redisClient.publishCreateChannelEvent({
+                            channelId: decode.args[0],
+                            channelName: decode.args[1],
+                        })
+                    } else if(decode.event.identifier === 'NewNotification') {
+                        redisClient.publishNewNotificationEvent({
+                            channelId: decode.args[0],
+                            author: decode.args[1],
+                            payload: decode.args[2],
+                        })
+                    }
                 }
             }
         });
