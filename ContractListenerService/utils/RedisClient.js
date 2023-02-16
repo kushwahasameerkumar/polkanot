@@ -27,7 +27,7 @@ RedisClient.prototype.publishCreateChannelEvent = function ({channelId, channelN
 
 RedisClient.prototype.publishNewNotificationEvent = function ({channelId, eventId, payload, author}) {
     this.client.publish(
-        'EVENT:PUBLISHED',
+        'NOTIFICATION:PUBLISHED',
         JSON.stringify({
             channelId,
             eventId,

@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "7c11bf47-c9c4-436c-b77a-53b6ff52851c",
+		"name": "Enigma Notification",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19402526"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"5GTF3vctE3SLWbReirK9q6vt5g45632k8eVPQDnkZVonrr1H\",\n    \"signature\": \"0x6a8f26ece30ce792f6c3bd124905ec97db96b2fdb461ae7dca86831342e58b4f48616229b259a42ba410fab68288cc2fe04f2e03175d57a72ceb36742be69782\",\n    \"token\": \"random123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscriber Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6000/get-subscriber-info",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"get-subscriber-info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gel Channels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:6000/get-channels",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"get-channels"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscribe Channel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"channelId\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/subscribe-channel",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"subscribe-channel"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Webhook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"channelId\": \"1\",\n    \"endpoint\": \"http://random-website.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6000/add-webhook",
+					"host": [
+						"localhost"
+					],
+					"port": "6000",
+					"path": [
+						"add-webhook"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package db;
+
+import "google/protobuf/empty.proto";
+
+service Database {
+    rpc IsSubscriber(IsSubscriberRequest) returns (IsSubscriberResponse);
+    rpc AuthenticateAddress(AuthenticateAddressRequest) returns (AuthenticateAddressResponse);
+    rpc AddNewChannel(AddNewChannelRequest) returns (google.protobuf.Empty);
+    rpc GetAllChannels(google.protobuf.Empty) returns (GetAllChannelsResponse);
+    rpc GetSubscriberInfo(GetSubscriberInfoRequest) returns (GetSubscriberInfoResponse);
+    rpc SubscribeChannel(SubscribeChannelRequest) returns (SubscribeChannelResponse);
+    rpc AddNewWebhook(AddNewWebhookRequest) returns (AddNewWebhookResponse);
+    rpc GetNotifications(GetNotificationsRequest) returns (GetNotificationsResponse);
+    rpc AddNewNotification(AddNewNotificationRequest) returns (google.protobuf.Empty);
+}
+
+message IsSubscriberRequest {
+    string address = 1;
+}
+
+message IsSubscriberResponse {
+    bool isFound = 1;
+}
+
+message AuthenticateAddressRequest {
+    string address = 1;
+    string signature = 2;
+    string token = 3;
+}
+
+message AuthenticateAddressResponse {
+    bool isError = 1;
+    string message = 2;
+}
+
+message AddNewChannelRequest {
+    string channelId = 1;
+    string channelName = 2;
+}
+
+// message AddNewChannelResponse {}
+
+message Channel {
+    string channelId = 1;
+    string channelName = 2;
+}
+
+// message GetAllChannelsRequest {}
+
+message GetAllChannelsResponse {
+    repeated Channel channels = 1;
+}
+
+message GetSubscriberInfoRequest {
+    string address = 1;
+}
+
+message Webhook {
+    string endpoint = 1;
+    string channelId = 2;
+    string subscriberId = 3;
+}
+
+message SubscribedChannels {
+    string channelId = 1;
+    string lastReadMessage = 2;
+    repeated Webhook webhooks = 3;
+}
+
+message GetSubscriberInfoResponse {
+    string address = 1;
+    string token = 2;
+    repeated SubscribedChannels subscribedChannels = 3;
+}
+
+message SubscribeChannelRequest {
+    string address = 1;
+    string channelId = 2;
+}
+
+message SubscribeChannelResponse {
+    bool isError = 1;
+    string message = 2;
+}
+
+message AddNewWebhookRequest {
+    string address = 1;
+    string channelId = 2;
+    string endpoint = 3;
+}
+
+message AddNewWebhookResponse {
+    bool isError = 1;
+    string message = 2;
+}
+
+message GetNotificationsRequest {
+    string address = 1;
+    string channelId = 2;
+    string token = 3;
+}
+
+message Notification {
+    string payload = 1;
+    string channelId = 2;
+    string notificationId = 3;
+}
+
+message GetNotificationsResponse {
+    bool isError = 1;
+    string message = 2;
+    repeated Notification notifications = 3;
+}
+
+message AddNewNotificationRequest {
+    string channelId = 1;
+    string payload = 2;
+}
+
+// message AddNewNotificationResponse {}

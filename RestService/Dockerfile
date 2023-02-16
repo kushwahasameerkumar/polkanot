@@ -3,7 +3,7 @@ FROM node:18-alpine
 #ARG port
 #ENV PORT $port
 
-WORKDIR /DBUtilityService
+WORKDIR /RestService
 COPY package*.json ./
 RUN apk add --no-cache python3 make g++
 RUN npm install

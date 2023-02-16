@@ -20,3 +20,45 @@ services:
       - /ContractListenerService/node_modules/
     environment:
       REDIS_URL: 'redis-stack:6379'
+
+  db-utility-service:
+    build:
+      context: ./DBUtilityService
+      dockerfile: Dockerfile
+    image: polkanot/db-utility-service
+    container_name: db-utility-service
+    #    ports:
+    #      - 3000:3000
+    volumes:
+      - ./DBUtilityService:/DBUtilityService
+      - /DBUtilityService/node_modules/
+#    environment:
+#      REDIS_URL: 'redis-stack:6379'
+
+#  queue-worker-service:
+#    build:
+#      context: ./QueueWorkerService
+#      dockerfile: Dockerfile
+#    image: polkanot/queue-worker-service
+#    container_name: queue-worker-service
+#    #    ports:
+#    #      - 3000:3000
+#    volumes:
+#      - ./QueueWorkerService:/QueueWorkerService
+#      - /QueueWorkerService/node_modules/
+#    environment:
+#      REDIS_URL: 'redis-stack:6379'
+
+  rest-api-service:
+    build:
+      context: ./RestService
+      dockerfile: Dockerfile
+    image: polkanot/rest-api-service
+    container_name: rest-api-service
+    ports:
+      - "6000:6000"
+    volumes:
+      - ./RestService:/RestService
+      - /RestService/node_modules/
+    environment:
+      DB_UTILITY_SERVICE_URL: 'db-utility-service:8000'
