@@ -8,14 +8,14 @@ listener().catch((error) => {
 
 setInterval(() => {
     redisClient.publishNewNotificationEvent({
-        channelId: 1,
+        channelId: 2,
         eventId: 12,
-        payload: JSON.stringify({name: "Sample Payload"}),
+        payload: JSON.stringify({channelId: "Sampleid"}),
         author: "test",
     })
 
     redisClient.publishCreateChannelEvent({
-        channelId: 312,
+        channelId: 2,
         channelName: "test_channel",
     })
-}, 1000)
+}, 2000)

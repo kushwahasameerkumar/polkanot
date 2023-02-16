@@ -27,27 +27,29 @@ services:
       dockerfile: Dockerfile
     image: polkanot/db-utility-service
     container_name: db-utility-service
-    #    ports:
-    #      - 3000:3000
+    ports:
+      - 8000:8000
     volumes:
       - ./DBUtilityService:/DBUtilityService
       - /DBUtilityService/node_modules/
 #    environment:
 #      REDIS_URL: 'redis-stack:6379'
 
-#  queue-worker-service:
-#    build:
-#      context: ./QueueWorkerService
-#      dockerfile: Dockerfile
-#    image: polkanot/queue-worker-service
-#    container_name: queue-worker-service
-#    #    ports:
-#    #      - 3000:3000
-#    volumes:
-#      - ./QueueWorkerService:/QueueWorkerService
-#      - /QueueWorkerService/node_modules/
-#    environment:
-#      REDIS_URL: 'redis-stack:6379'
+  queue-worker-service:
+    build:
+      context: ./QueueWorkerService
+      dockerfile: Dockerfile
+    image: polkanot/queue-worker-service
+    container_name: queue-worker-service
+    #    ports:
+    #      - 3000:3000
+    volumes:
+      - ./QueueWorkerService:/QueueWorkerService
+      - /QueueWorkerService/node_modules/
+    environment:
+      REDIS_URL: 'redis-stack:6379'
+      DB_UTILITY_SERVICE_URL: 'db-utility-service:8000'
+
 
   rest-api-service:
     build:

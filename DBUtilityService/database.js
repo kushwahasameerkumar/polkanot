@@ -193,6 +193,11 @@ class Database {
 
     // POST: add new notification
     async addNewNotification(channelId, payload) {
+        let response = {
+            isError: false,
+            message: "Successful!"
+        }
+
         const exist = await this.isChannel(channelId)
         if(!exist) {
             response.isError = true
@@ -259,6 +264,14 @@ class Database {
         }
 
         return response
+    }
+
+    // GET: subscriber info
+    async getWebhooksByChannelId(channelId) {
+        const channel = await Channel
+            .findOne({ channelId })
+            .exec()
+        return {webhookEndpoints: channel.webhooks};
     }
 }
 

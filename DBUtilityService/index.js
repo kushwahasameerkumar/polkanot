@@ -24,6 +24,7 @@ server.addService(protos.db.Database.service, {
     AddNewWebhook,
     AddNewNotification,
     GetNotifications,
+    GetWebhooksByChannelId,
 })
 
 async function IsSubscriber(call, callback) {
@@ -47,7 +48,7 @@ async function AuthenticateAddress(call, callback) {
 
 async function AddNewChannel(call, callback) {
     let { channelId, channelName } = call.request
-    let  response = await db.addNewChannel(channelId, channelName)
+    let  response = await db.addNewChannel(channelId, channelName).catch(e => {})
     callback(null, response)
 }
 
@@ -83,5 +84,11 @@ async function AddNewNotification(call, callback) {
 async function GetNotifications(call, callback) {
     let { address, channelId, token } = call.request
     let  response = await db.getNewNotifications(channelId, address, token)
+    callback(null, response)
+}
+
+async function GetWebhooksByChannelId(call, callback) {
+    let { channelId } = call.request
+    let  response = await db.getWebhooksByChannelId(channelId)
     callback(null, response)
 }
