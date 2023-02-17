@@ -48,24 +48,24 @@ function newNotificationListener(msg){
         console.log(webhookEndpoints)
         webhookEndpoints?.forEach(endpoint => {
             console.log(`Calling webhook endpoint ${endpoint} for channedId ${channelId}`);
-            callWebhookEndpointWithPayload(endpoint, payload)
+            callWebhookEndpointWithPayload(endpoint, {channelId, payload})
         })
     })
 }
 
-async function callWebhookEndpointWithPayload(endpoint, jsonPayload) {
+async function callWebhookEndpointWithPayload(endpoint, {channelId, payload}) {
     try{
         const res = await fetch(endpoint, {
             method: 'POST',
-            body: JSON.stringify(jsonPayload),
+            body: JSON.stringify({channelId, payload}),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
 
         res.ok
-        ? console.log(`\[Status code: ${res.status}\]Successfully called webhook endpoint ${endpoint} with payload ${JSON.stringify(jsonPayload)}`)
-        : console.log(`\[Status code: ${res.status}\]Failed calling webhook endpoint ${endpoint} with payload ${JSON.stringify(jsonPayload)}`)
+        ? console.log(`\[Status code: ${res.status}\]Successfully called webhook endpoint ${endpoint} with payload ${JSON.stringify({channelId, payload})}`)
+        : console.log(`\[Status code: ${res.status}\]Failed calling webhook endpoint ${endpoint} with payload ${JSON.stringify({channelId, payload})}`)
 
     }catch (err){
         console.log("callWebhookEndpointWithPayload error:", err)
