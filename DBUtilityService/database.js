@@ -278,7 +278,7 @@ class Database {
         const channel = await Channel
             .findOne({ channelId })
             .exec()
-        return {webhookEndpoints: channel.webhooks};
+        return {webhookEndpoints: channel?.webhooks};
     }
 }
 

@@ -18,7 +18,7 @@ redisClient.subscribe('NOTIFICATION:PUBLISHED', newNotificationListener);
 
 function newChannelListener(msg){
     const {channelId, channelName} = JSON.parse(msg)
-    db.AddNewChannel({channelId: parseInt(channelId ?? 0)?.toString(), channelName}, (err, res) => {
+    db.AddNewChannel({channelId: channelId?.toString(), channelName}, (err, res) => {
         if(err || res.isError) {
             console.error("Error: newChannelListener:", err, res);
             return;

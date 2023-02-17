@@ -23,15 +23,14 @@ async function listener() {
                 if (contract_address.toString() === MAIN_CONTRACT) {
                     const decode = abi.decodeEvent(contract_event);
 
-                    // TODO: convert channelId from hex to integer
                     if(decode.event.identifier === 'ChannelCreated') {
                         redisClient.publishCreateChannelEvent({
-                            channelId: decode.args[0],
+                            channelId: parseInt(decode.args[0] ?? 0)?.toString(),
                             channelName: decode.args[1],
                         })
                     } else if(decode.event.identifier === 'NewNotification') {
                         redisClient.publishNewNotificationEvent({
-                            channelId: decode.args[0],
+                            channelId: parseInt(decode.args[0] ?? 0)?.toString(),
                             author: decode.args[1],
                             payload: decode.args[2],
                         })
