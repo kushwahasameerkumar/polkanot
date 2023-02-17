@@ -14,6 +14,10 @@ const SubscriberSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+        channelName: {
+            type: String,
+            required: true
+        },
         webhooks: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Webhook' }],
         lastReadMessage: {
             type: String,

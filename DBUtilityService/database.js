@@ -30,7 +30,7 @@ class Database {
     async isChannel(channelId) {
         const channel = await Channel.findOne({channelId})
         if(channel) {
-            return true
+            return channel
         }
         return false
     }
@@ -102,7 +102,8 @@ class Database {
             Subscriber.updateOne({ address, 'subscribedChannels.channelId': {$ne: channelId} }, {
                 $push: {
                     subscribedChannels: {
-                        channelId: channelId
+                        channelId: channelId,
+                        channelName: exist.channelName
                     }
                 }
             }, (err, sub) => {

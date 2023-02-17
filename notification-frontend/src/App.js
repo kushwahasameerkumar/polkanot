@@ -46,6 +46,7 @@ function App() {
       <div style={{display:"flex",flexDirection:"column"}}>
         <div style={{position:"relative", width:"80%",margin:"0 auto"}}>
           <h1 style={{textAlign:"center"}}> PolkaNotify
+          <img src="/bell.png" style = {{width: "30px", height: "30px", marginLeft: "10px", }} alt = {"bell"}/>
           {/* <NotificationsActiveIcon sx={{color:"green",paddingLeft:"10px"}} /> */}
           </h1>
           <button

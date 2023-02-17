@@ -1,12 +1,5 @@
 import axios from 'axios'
 
-// var config = {
-//     baseURL: 'http://localhost:3100',
-//     headers: { 
-//         'Content-Type': 'application/json'
-//     },
-// };
-
 axios.defaults.baseURL = 'http://localhost:3100'
 
 export const calls = {
@@ -24,7 +17,7 @@ export const calls = {
                 data: {
                     address,
                     signature,
-                    token: "random123"
+                    token: Math.random().toString(36).slice(2)
                 }
             })
         } catch(err) {

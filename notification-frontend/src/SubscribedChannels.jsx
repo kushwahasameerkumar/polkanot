@@ -17,7 +17,7 @@ const SubscribedChannels =({user, setSelectedChannel, allChannels}) =>{
       return(
         <div key={channel.channelId}>
           <div tabIndex={1} className="channels" onClick={()=>setSelectedChannel(channel)} >
-            {channel?.channelId}
+            #{channel?.channelId?.slice(0, 4)} {channel?.channelName}
           </div>
         </div>
       );

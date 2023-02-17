@@ -65,8 +65,9 @@ message Webhook {
 
 message SubscribedChannels {
     string channelId = 1;
-    string lastReadMessage = 2;
+    string channelName = 2;
     repeated Webhook webhooks = 3;
+    string lastReadMessage = 4;
 }
 
 message GetSubscriberInfoResponse {
