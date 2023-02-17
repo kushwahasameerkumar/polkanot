@@ -64,3 +64,17 @@ services:
       - /RestService/node_modules/
     environment:
       DB_UTILITY_SERVICE_URL: 'db-utility-service:8000'
+
+  messanger-integration-service:
+    build:
+      context: ./MessengerIntegrationService
+      dockerfile: Dockerfile
+    image: polkanot/messenger-integration-service
+    container_name: messenger-integration-service
+    ports:
+      - "6001:6001"
+    volumes:
+      - ./MessengerIntegrationService:/MessengerIntegrationService
+      - /MessengerIntegrationService/node_modules/
+    environment:
+      PORT: '6001'
