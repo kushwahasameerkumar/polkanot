@@ -16,6 +16,10 @@ app.post('/webhook/discord', async (req, res) => {
     return res.status(200).json({success: true})
 })
 
+app.get('/', (req, res) => {
+    res.json({msg: "Hello World!"})
+})
+
 app.listen(port, () => {
     console.log(`Server started at port ${port}`)
 })
