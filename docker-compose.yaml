@@ -58,7 +58,7 @@ services:
     image: polkanot/rest-api-service
     container_name: rest-api-service
     ports:
-      - "6000:6000"
+      - "3100:6000"
     volumes:
       - ./RestService:/RestService
       - /RestService/node_modules/

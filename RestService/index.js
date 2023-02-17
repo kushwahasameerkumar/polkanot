@@ -3,6 +3,7 @@ const express = require('express')
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const path = require('path')
+const cors = require('cors')
 
 const protos = require('./protos')
 
@@ -20,6 +21,9 @@ app.use(sessions({
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
+
+// TODO: move list of origin to config file
+app.use(cors({credentials:true, origin: 'http://localhost:3001'}))
 
 // for serving client production build
 app.use(express.static(path.join(__dirname, "build/client")))
