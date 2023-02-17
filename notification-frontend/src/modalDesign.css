@@ -1,0 +1,35 @@
+.Modal {
+  width:1000px;
+  height: 400px;
+  padding: 20px;
+  margin: auto ;
+  margin-top: 100px;
+  background-color: white;
+  border: 2px solid white;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ModalWebhook{
+  width:400px;
+  height: 150px;
+  padding: 20px;
+  margin: auto ;
+  margin-top: 100px;
+  background-color: white;
+  border: 2px solid white;
+}
+
+.OverlayWebhook{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
