@@ -126,12 +126,6 @@ app.post("/add-webhook", isAuthenticated, async (req, res) => {
     if(endpoint){
         try {
             const providedUrl = new URL(endpoint);
-            if(providedUrl.hostname == "discord.com" && providedUrl.pathname.includes("/api/webhooks/")){
-                // discord webhook is being passed
-                const updatedUrl = new URL("http://155.248.244.172/messenger/webhook/discord");
-                updatedUrl.searchParams.append("discordWebhookUrl", providedUrl.toString())
-                endpoint = updatedUrl.toString()
-            }
         }catch(err){
             return res.status(400).send('Provided endpoint is not a correct URL format')
         }

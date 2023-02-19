@@ -55,6 +55,14 @@ function newNotificationListener(msg){
 
 async function callWebhookEndpointWithPayload(endpoint, {channelId, payload}) {
     try{
+        const providedUrl = new URL(endpoint);
+        if(providedUrl.hostname == "discord.com" && providedUrl.pathname.includes("/api/webhooks/")){
+            // discord webhook is being passed
+            const updatedUrl = new URL("http://polkanotify.reverseproxy.ga/messenger/webhook/discord");
+            updatedUrl.searchParams.append("discordWebhookUrl", providedUrl.toString())
+            endpoint = updatedUrl.toString()
+        }
+
         const res = await fetch(endpoint, {
             method: 'POST',
             body: JSON.stringify({channelId, payload}),
