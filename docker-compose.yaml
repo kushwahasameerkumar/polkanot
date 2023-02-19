@@ -17,7 +17,7 @@ services:
 #      - 3000:3000
     volumes:
       - ./ContractListenerService:/ContractListenerService
-      - /ContractListenerService/node_modules/
+      - ContractListenerServiceVolume:/ContractListenerService/node_modules/
     environment:
       REDIS_URL: 'redis-stack:6379'
 
@@ -31,7 +31,7 @@ services:
       - 8000:8000
     volumes:
       - ./DBUtilityService:/DBUtilityService
-      - /DBUtilityService/node_modules/
+      - DBUtilityServiceVolume:/DBUtilityService/node_modules/
 #    environment:
 #      REDIS_URL: 'redis-stack:6379'
 
@@ -45,7 +45,7 @@ services:
     #      - 3000:3000
     volumes:
       - ./QueueWorkerService:/QueueWorkerService
-      - /QueueWorkerService/node_modules/
+      - QueueWorkerServiceVolume:/QueueWorkerService/node_modules/
     environment:
       REDIS_URL: 'redis-stack:6379'
       DB_UTILITY_SERVICE_URL: 'db-utility-service:8000'
@@ -61,7 +61,7 @@ services:
       - "3100:6000"
     volumes:
       - ./RestService:/RestService
-      - /RestService/node_modules/
+      - RestServiceVolume:/RestService/node_modules/
     environment:
       DB_UTILITY_SERVICE_URL: 'db-utility-service:8000'
 
@@ -75,6 +75,13 @@ services:
       - "6001:6001"
     volumes:
       - ./MessengerIntegrationService:/MessengerIntegrationService
-      - /MessengerIntegrationService/node_modules/
+      - MessengerIntegrationServiceVolume:/MessengerIntegrationService/node_modules/
     environment:
       PORT: '6001'
+
+volumes:
+  ContractListenerServiceVolume:
+  DBUtilityServiceVolume:
+  QueueWorkerServiceVolume:
+  RestServiceVolume:
+  MessengerIntegrationServiceVolume:
