@@ -155,7 +155,7 @@ class Database {
                     return response
                 }
 
-                Subscriber.updateOne({ 'subscribedChannels.channelId': channelId }, {
+                Subscriber.updateOne({ address, 'subscribedChannels.channelId': channelId }, {
                     $push: {
                         'subscribedChannels.$.webhooks': webhook._id
                     }
