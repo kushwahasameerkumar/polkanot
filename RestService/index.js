@@ -93,9 +93,9 @@ app.get('/get-channels', isAuthenticated, async (req, res) => {
 })
 
 // fetch last unread notifications
-app.get('/get-notifications', isAuthenticated, async (req, res) => {
-    const { channelId, token } = req.query
-    db.GetNotifications({ address: req.session.address, channelId, token}, (err, response) => {
+app.get('/get-notifications', async (req, res) => {
+    const { channelId, token, address } = req.query
+    db.GetNotifications({ address, channelId, token}, (err, response) => {
         if(err || response?.isError) {
             res.status(500).send(err ? null : response?.message)
             return
