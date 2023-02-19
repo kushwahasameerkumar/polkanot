@@ -120,7 +120,23 @@ app.post("/subscribe-channel", isAuthenticated, async (req, res) => {
 
 // add new webhook
 app.post("/add-webhook", isAuthenticated, async (req, res) => {
-    const { channelId, endpoint } = req.body
+    const { channelId } = req.body
+    let {endpoint} = req.body
+
+    if(endpoint){
+        try {
+            const providedUrl = new URL(endpoint);
+            if(providedUrl.hostname == "discord.com" && providedUrl.pathname.includes("/api/webhooks/")){
+                // discord webhook is being passed
+                const updatedUrl = new URL("http://155.248.244.172/messenger/webhook/discord");
+                updatedUrl.searchParams.append("discordWebhookUrl", providedUrl.toString())
+                endpoint = updatedUrl.toString()
+            }
+        }catch(err){
+            return res.status(400).send('Provided endpoint is not a correct URL format')
+        }
+    }
+
     db.AddNewWebhook({ address: req.session.address, channelId, endpoint }, (err, response) => {
         if(err || response?.isError) {
             res.status(500).send(err ? null : response?.message)
