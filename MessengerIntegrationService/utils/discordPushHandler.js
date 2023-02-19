@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const webhookUrl = `https://discord.com/api/webhooks/1076154710731526297/lsRE1FpnPPNcnVLrk4Gyt3QN5mopSAvD41RaDasOMcdeCb7J7Cwtua6NNcX3hgTNLKLT`;
-
 const colors = [
     1752220, 1146986, 5763719, 2067276, 3447003, 2123412,
     10181046, 7419530, 15277667, 11342935, 15844367, 12745742,
@@ -16,9 +14,9 @@ const randomColor = () => {
     return colors[getRndInteger(1000, 10000) % colors.length];
 }
 
-const discordPushHandler = async ({channelId, payload}) => {
+const discordPushHandler = async ({discordWebhookUrl, channelId, payload}) => {
     try{
-        const res = await axios.post(webhookUrl, {
+        const res = await axios.post(discordWebhookUrl, {
             username: 'PolkanotBot',
             embeds: [
                 {
