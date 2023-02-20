@@ -58,7 +58,7 @@ async function callWebhookEndpointWithPayload(endpoint, {channelId, payload}) {
         const providedUrl = new URL(endpoint);
         if(providedUrl.hostname == "discord.com" && providedUrl.pathname.includes("/api/webhooks/")){
             // discord webhook is being passed
-            const updatedUrl = new URL("http://polkanotify.reverseproxy.ga/messenger/webhook/discord");
+            const updatedUrl = new URL("http://polkanotify.ninja/messenger/webhook/discord");
             updatedUrl.searchParams.append("discordWebhookUrl", providedUrl.toString())
             endpoint = updatedUrl.toString()
         }
